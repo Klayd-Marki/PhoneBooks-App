@@ -1,43 +1,52 @@
-const mongoose = require("mongoose");
-// const Phone = require('../models/PhoneFromFile');
-const Phone = mongoose.model("Phone");
+const mongoose = require('mongoose');
+const Phone = mongoose.model('Phone');
 
 exports.getMainPage = (req, res)=> {
-
-    
-    Phone.find((error,phones)=>{
+    Phone.find((error, items) => {
         if(!error){
-           res.render('index.ejs', { phoneItems : phones});  
-        }else{
-            console.log("Failed to retrieve data.");
+            res.render('index.ejs', {phones: items});
+        } else {
+            console.log('Failed to retrieve data.');
         }
     });
-    
 };
 
-
-exports.postnewPhone= (req, res) => {
-    let item = req.body.newPhone;
-    let newPhone = new Phone();
-    newPhone.description = item;
-
-    newPhone.save((error, respones) => {
+exports.getAddPage = (req, res) => {
+    Phone.find((error, items) => {
         if(!error){
-            res.redirect("/");
-        }else{
+            res.render('add.ejs', {phones: items});
+        } else {
+            console.log('Failed to retrieve data.');
+        }
+    });
+};
+
+exports.postnewContact = (req, res) => {
+    let firstname = req.body.newContactName;
+    let lastname = req.body.newContactLastName;
+    let phonenumber = req.body.newContactNumber;
+    let newContact = new Phone();
+    newContact.phonenumber = phonenumber;
+    newContact.firstname = firstname;
+    newContact.lastname = lastname;
+
+    newContact.save((error, response) => {
+        if(!error){
+            res.redirect('/');
+        } else {
             console.log("Failed to save data.");
         }
     });
 }
 
-exports.deletePhone = (req,res)=>{
-    const checkedItemId = req.body.checkbox;
-    
-    Phone.findByIdAndRemove(checkedItemId, (error)=>{
+exports.deleteContact = (req, res) => {
+    const checkedItemId = req.body.delete;
+
+    Phone.findByIdAndRemove(checkedItemId, (error) => {
         if(!error){
             res.redirect('/');
-        }else{
-            console.log("Failed to remove an item.");
+        } else {
+            console.log('Failed to remove an item.');
         }
     });
-} 
+}

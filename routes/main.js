@@ -1,12 +1,10 @@
 const express = require('express');
-const tasksController = require('../controllers/maincontroller');
+const maincontroller = require('../controllers/maincontroller');
 const router = express.Router();
 
-router.get('/', tasksController.getMainPage);
-
-router.post('/', tasksController.postnewPhone);
-
-router.post('/delete', tasksController.deletePhone);
-
+router.get('/', maincontroller.getMainPage);
+router.get('/add-user', maincontroller.getAddPage);
+router.post('/delete-contact', maincontroller.deleteContact);
+router.post('/add-contact', maincontroller.postnewContact);
 
 module.exports = router;

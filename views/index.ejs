@@ -2,35 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/5cca11e197.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Contact List</title>
+    <title>Phonebook List</title>
 </head>
 <body>
+    <div class="box" id="heading">
+        <h1>Phonebook</h1>
+        <hr>
+        <% for(let i = 0; i < phones.length; i++) { %>
+        <form action="/delete-contact" method="POST">
+        <div class="item">
+            <table>
+            <tr>
+            <td><button id="remove" type="submit" name="delete" value="<%= phones[i].id %>"><i class="fas fa-trash-alt"></i></button></td>
+            <td><p><%= phones[i].firstname %></p></td>
+            <td><p><%= phones[i].lastname %></p></td>
+            <td><p><%= phones[i].phonenumber %></p></td>
+        </tr>
+    </table>
+        </div>
+    </form>
     
-
-    <div class="box">
-        <% for(let i=0;i < phoneItems.length; i++) { %>
-            <form action="/delete" method="POST">
-                <div class="item">
-                <input name="checkbox" value="<%= phoneItems[i].id %>" type="checkbox" onchange="this.form.submit()">
-         <p><%= phoneItems[i].description %></p>
-    </div>
-            </form>
-        
-        <% } %>
-
-    </div>
-    
-    <form action="/" method="POST">
-            <button type="submit">Add New Contact</button>
-        </form>
-
-
-        
-    <footer>
-        <span>YEET &#169 2021</span>
-    </footer>
-    
+<% } %>
+<div id="button-add">
+<hr>
+<form action="/add-user" method="GET">
+    <button id="add">Add Contact</button>
+    </form>
+</div>
+</div>
 </body>
 </html>
